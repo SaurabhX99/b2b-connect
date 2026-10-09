@@ -1,0 +1,235 @@
+.find-suppliers {
+  min-height: 100vh;
+}
+
+.fs__top {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: 32px 120px;
+}
+
+.fs__title {
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: -0.5px;
+  margin-bottom: 20px;
+}
+
+.fs__search-bar {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  height: 52px;
+  padding: 0 8px 0 16px;
+  gap: 10px;
+  max-width: 600px;
+  margin-bottom: 24px;
+}
+
+.fs__search-icon {
+  color: var(--color-text-tertiary);
+  display: flex;
+}
+
+.fs__search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-primary);
+  font-size: 15px;
+  color: var(--color-navy);
+}
+
+.fs__search-clear {
+  color: var(--color-text-tertiary);
+  display: flex;
+}
+
+.fs__filters {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.fs__filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fs__filter-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.fs__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.fs__chip {
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  border: 1.5px solid var(--color-border-strong);
+}
+
+.fs__chip--active {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.fs__body {
+  padding: 32px 120px;
+}
+
+.fs__count {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin-bottom: 20px;
+}
+
+.fs__empty {
+  text-align: center;
+  padding: 64px 0;
+  color: var(--color-text-secondary);
+}
+
+.fs__empty-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.fs__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.fs__card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+
+.fs__card:hover {
+  box-shadow: 0 4px 16px rgba(15,118,110,.12);
+  border-color: var(--color-primary);
+}
+
+.fs__card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.fs__card-name {
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 24px;
+  color: var(--color-text);
+}
+
+.fs__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.fs__badge--0 {
+  background: var(--color-subtle);
+  border: 1px dashed var(--color-border-strong);
+  color: var(--color-text-secondary);
+}
+
+.fs__badge--1 {
+  background: var(--color-badge-l1-bg);
+  border: 1px solid var(--color-badge-l1);
+  color: var(--color-badge-l1);
+}
+
+.fs__badge--2 {
+  background: var(--color-badge-l2-bg);
+  color: var(--color-badge-l2);
+}
+
+.fs__badge--3 {
+  background: var(--color-badge-l3-bg);
+  border: 1px solid var(--color-badge-l3);
+  color: var(--color-badge-l3);
+}
+
+.fs__card-desc {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-text-secondary);
+}
+
+.fs__card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.fs__card-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+}
+
+.fs__card-btn {
+  margin-top: 4px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  background: var(--color-primary-subtle);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  align-self: flex-start;
+}
+
+.fs__card-btn:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .fs__top,
+  .fs__body {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
