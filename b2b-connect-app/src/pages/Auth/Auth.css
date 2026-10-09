@@ -367,9 +367,62 @@
   font-size: 15px;
   font-weight: 600;
   color: var(--color-text);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.auth-verify-field__edit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-link);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.auth-verify-field__edit-btn:hover {
+  text-decoration: underline;
+}
+
+.auth-verify-field__edit-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.auth-verify-field__edit-input {
+  flex: 1;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1.5px solid var(--color-border-strong);
+  font-family: var(--font-primary);
+  font-size: 14px;
+  color: var(--color-navy);
+  outline: none;
+  min-width: 0;
+}
+
+.auth-verify-field__edit-input:focus {
+  border-color: var(--color-primary);
+}
+
+.auth-field-btn--save {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.auth-field-btn--cancel {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-strong);
 }
 
 /* ── Field buttons ── */

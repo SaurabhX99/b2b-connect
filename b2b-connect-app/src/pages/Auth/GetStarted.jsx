@@ -91,6 +91,12 @@ function GetStarted() {
   const [emailError, setEmailError] = useState('')
   const [emailTimer, setEmailTimer] = useState(0)
 
+  // Edit mode for verify step
+  const [editingPhone, setEditingPhone] = useState(false)
+  const [editingEmail, setEditingEmail] = useState(false)
+  const [editPhone, setEditPhone] = useState('')
+  const [editEmail, setEditEmail] = useState('')
+
   // Loader
   const [creating, setCreating] = useState(false)
   const [created, setCreated] = useState(false)
@@ -327,19 +333,57 @@ function GetStarted() {
                     </svg>
                     <div>
                       <span className="auth-verify-field__label">Phone number</span>
-                      <span className="auth-verify-field__value">{form.phone}</span>
+                      {editingPhone ? (
+                        <div className="auth-verify-field__edit-row">
+                          <input
+                            type="tel"
+                            className="auth-verify-field__edit-input"
+                            value={editPhone}
+                            onChange={e => setEditPhone(e.target.value)}
+                            placeholder="+91 98765 43210"
+                            autoFocus
+                          />
+                          <button
+                            className="auth-field-btn auth-field-btn--save"
+                            disabled={!isValidPhone(editPhone)}
+                            onClick={() => {
+                              set('phone', editPhone)
+                              setEditingPhone(false)
+                              setPhoneOtpSent(false)
+                              setPhoneError('')
+                            }}
+                          >Save</button>
+                          <button className="auth-field-btn auth-field-btn--cancel" onClick={() => setEditingPhone(false)}>Cancel</button>
+                        </div>
+                      ) : (
+                        <span className="auth-verify-field__value">
+                          {form.phone}
+                          {!phoneVerified && (
+                            <button className="auth-verify-field__edit-btn" onClick={() => { setEditPhone(form.phone); setEditingPhone(true); setPhoneOtpSent(false); setPhoneSending(false); setPhoneError(''); }}>
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/>
+                              </svg>
+                              Edit
+                            </button>
+                          )}
+                        </span>
+                      )}
                     </div>
                   </div>
-                  {phoneVerified ? (
-                    <span className="auth-field-badge auth-field-badge--success">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                      Verified
-                    </span>
-                  ) : !phoneOtpSent && !phoneSending ? (
-                    <button className="auth-field-btn" onClick={handleVerifyPhone}>Verify</button>
-                  ) : phoneSending ? (
-                    <span className="auth-field-btn auth-field-btn--loading"><Spinner small /></span>
-                  ) : null}
+                  {!editingPhone && (
+                    <>
+                      {phoneVerified ? (
+                        <span className="auth-field-badge auth-field-badge--success">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                          Verified
+                        </span>
+                      ) : !phoneOtpSent && !phoneSending ? (
+                        <button className="auth-field-btn" onClick={handleVerifyPhone}>Verify</button>
+                      ) : phoneSending ? (
+                        <span className="auth-field-btn auth-field-btn--loading"><Spinner small /></span>
+                      ) : null}
+                    </>
+                  )}
                 </div>
 
                 {phoneOtpSent && !phoneVerified && (
@@ -365,19 +409,57 @@ function GetStarted() {
                     </svg>
                     <div>
                       <span className="auth-verify-field__label">Email address</span>
-                      <span className="auth-verify-field__value">{form.email}</span>
+                      {editingEmail ? (
+                        <div className="auth-verify-field__edit-row">
+                          <input
+                            type="email"
+                            className="auth-verify-field__edit-input"
+                            value={editEmail}
+                            onChange={e => setEditEmail(e.target.value)}
+                            placeholder="you@example.com"
+                            autoFocus
+                          />
+                          <button
+                            className="auth-field-btn auth-field-btn--save"
+                            disabled={!isValidEmail(editEmail)}
+                            onClick={() => {
+                              set('email', editEmail)
+                              setEditingEmail(false)
+                              setEmailOtpSent(false)
+                              setEmailError('')
+                            }}
+                          >Save</button>
+                          <button className="auth-field-btn auth-field-btn--cancel" onClick={() => setEditingEmail(false)}>Cancel</button>
+                        </div>
+                      ) : (
+                        <span className="auth-verify-field__value">
+                          {form.email}
+                          {!emailVerified && (
+                            <button className="auth-verify-field__edit-btn" onClick={() => { setEditEmail(form.email); setEditingEmail(true); setEmailOtpSent(false); setEmailSending(false); setEmailError(''); }}>
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/>
+                              </svg>
+                              Edit
+                            </button>
+                          )}
+                        </span>
+                      )}
                     </div>
                   </div>
-                  {emailVerified ? (
-                    <span className="auth-field-badge auth-field-badge--success">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                      Verified
-                    </span>
-                  ) : !emailOtpSent && !emailSending ? (
-                    <button className="auth-field-btn" onClick={handleVerifyEmail}>Verify</button>
-                  ) : emailSending ? (
-                    <span className="auth-field-btn auth-field-btn--loading"><Spinner small /></span>
-                  ) : null}
+                  {!editingEmail && (
+                    <>
+                      {emailVerified ? (
+                        <span className="auth-field-badge auth-field-badge--success">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                          Verified
+                        </span>
+                      ) : !emailOtpSent && !emailSending ? (
+                        <button className="auth-field-btn" onClick={handleVerifyEmail}>Verify</button>
+                      ) : emailSending ? (
+                        <span className="auth-field-btn auth-field-btn--loading"><Spinner small /></span>
+                      ) : null}
+                    </>
+                  )}
                 </div>
 
                 {emailOtpSent && !emailVerified && (

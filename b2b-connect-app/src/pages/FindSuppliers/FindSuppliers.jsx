@@ -2,26 +2,25 @@ import { useState } from 'react'
 import Navbar from '../../components/Navbar/Navbar'
 import './FindSuppliers.css'
 
+const TIER_BADGES = {
+  1: ['User Verified'],
+  2: ['User Verified', 'Business Domain Verified', 'Business Name Matched', 'Business Address Matched'],
+  3: ['User Verified', 'Business Domain Verified', 'Business Name Matched', 'Business Address Matched', 'Premium Member'],
+}
+
 const SUPPLIERS = [
   { id: 1, name: 'Mehta Packworks', industry: 'Packaging & Paper', location: 'Gurugram, Haryana', tier: 1, desc: 'Corrugated packaging for e-commerce and retail.' },
   { id: 2, name: 'Sharma Textiles', industry: 'Textiles & Apparel', location: 'Surat, Gujarat', tier: 2, desc: 'Fabric and garment manufacturing with export experience.' },
   { id: 3, name: 'Krishna Industries', industry: 'Industrial Equipment', location: 'Pune, Maharashtra', tier: 2, desc: 'Precision components and tooling for the automotive sector.' },
   { id: 4, name: 'Agarwal Constructs', industry: 'Construction', location: 'Delhi NCR', tier: 1, desc: 'Building materials and civil supply for large projects.' },
-  { id: 5, name: 'Green Farms Co', industry: 'Food & Agriculture', location: 'Nashik, Maharashtra', tier: 0, desc: 'Fresh produce and cold-chain logistics for HORECA buyers.' },
+  { id: 5, name: 'Green Farms Co', industry: 'Food & Agriculture', location: 'Nashik, Maharashtra', tier: 1, desc: 'Fresh produce and cold-chain logistics for HORECA buyers.' },
   { id: 6, name: 'ChemSpec India', industry: 'Chemicals', location: 'Mumbai, Maharashtra', tier: 3, desc: 'Specialty chemicals with full compliance documentation.' },
   { id: 7, name: 'Ravi Paper Mills', industry: 'Packaging & Paper', location: 'Hyderabad, Telangana', tier: 2, desc: 'Kraft paper and board for industrial packaging needs.' },
   { id: 8, name: 'Bharat Garments', industry: 'Textiles & Apparel', location: 'Tirupur, Tamil Nadu', tier: 1, desc: 'Knitwear and workwear for domestic and export buyers.' },
 ]
 
 const INDUSTRIES = ['All', 'Packaging & Paper', 'Textiles & Apparel', 'Industrial Equipment', 'Construction', 'Food & Agriculture', 'Chemicals']
-const TIERS = ['All', 'Tier 0', 'Tier 1', 'Tier 2', 'Tier 3']
-
-const TIER_LABELS = {
-  0: 'Tier 0 Registered',
-  1: 'Tier 1 Contact Verified',
-  2: 'Tier 2 Business Verified',
-  3: 'Tier 3 Premium',
-}
+const TIERS = ['All', 'Tier 1', 'Tier 2', 'Tier 3']
 
 function FindSuppliers() {
   const [query, setQuery] = useState('')
@@ -109,7 +108,7 @@ function FindSuppliers() {
               <div key={s.id} className="fs__card">
                 <div className="fs__card-header">
                   <p className="fs__card-name">{s.name}</p>
-                  <span className={`fs__badge fs__badge--${s.tier}`}>{TIER_LABELS[s.tier]}</span>
+                  <span className={`fs__badge fs__badge--${s.tier}`}>Tier {s.tier}</span>
                 </div>
                 <p className="fs__card-desc">{s.desc}</p>
                 <div className="fs__card-meta">
@@ -125,6 +124,14 @@ function FindSuppliers() {
                     </svg>
                     {s.location}
                   </span>
+                </div>
+                <div className="fs__card-badges">
+                  {TIER_BADGES[s.tier].map(b => (
+                    <span key={b} className={`fs__card-badge ${
+                      b === 'User Verified' ? 'fs__card-badge--blue' :
+                      b === 'Premium Member' ? 'fs__card-badge--amber' : 'fs__card-badge--green'
+                    }`}>{b}</span>
+                  ))}
                 </div>
                 <button className="fs__card-btn">View Profile</button>
               </div>

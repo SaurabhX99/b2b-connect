@@ -127,7 +127,7 @@ function Landing() {
             ['2,400+', 'Supplier profiles'],
             ['12', 'Industry categories'],
             ['28', 'States represented'],
-            ['4', 'Transparent badge tiers'],
+            ['3', 'Transparent badge tiers'],
           ].map(([value, label]) => (
             <div key={label} className="landing__stat-item">
               <p className="landing__stat-value">{value}</p>

@@ -165,12 +165,6 @@
   white-space: nowrap;
 }
 
-.fs__badge--0 {
-  background: var(--color-subtle);
-  border: 1px dashed var(--color-border-strong);
-  color: var(--color-text-secondary);
-}
-
 .fs__badge--1 {
   background: var(--color-badge-l1-bg);
   border: 1px solid var(--color-badge-l1);
@@ -192,6 +186,7 @@
   font-size: 14px;
   line-height: 20px;
   color: var(--color-text-secondary);
+  flex: 1;
 }
 
 .fs__card-meta {
@@ -208,9 +203,39 @@
   color: var(--color-text-tertiary);
 }
 
+.fs__card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.fs__card-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.fs__card-badge--blue {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.fs__card-badge--green {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+.fs__card-badge--amber {
+  background: #fffbeb;
+  color: #92400e;
+}
+
 .fs__card-btn {
-  margin-top: 4px;
-  padding: 8px 16px;
+  margin-top: auto;
+  padding: 10px 16px;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
@@ -219,7 +244,8 @@
   background: var(--color-primary-subtle);
   color: var(--color-primary);
   border: 1px solid var(--color-primary);
-  align-self: flex-start;
+  width: 100%;
+  text-align: center;
 }
 
 .fs__card-btn:hover {
