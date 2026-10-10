@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Navbar from '../../components/Navbar/Navbar'
+import logo from '../../assets/logo.jpeg'
 import './Auth.css'
 
 const STEPS = [
@@ -559,9 +560,7 @@ function GetStarted() {
             {creating && (
               <div className="auth-logo-loader">
                 <div className="auth-logo-loader__icon">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  </svg>
+                  <img src={logo} alt="Business Dekho" style={{ height: 40, objectFit: 'contain' }} />
                 </div>
                 <h2 className="auth-logo-loader__text">Creating your account...</h2>
                 <p className="auth-logo-loader__sub">Please wait while we set things up for you.</p>

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Navbar from '../../components/Navbar/Navbar'
 import DirectoryPreview from './DirectoryPreview'
+import logo from '../../assets/logo.jpeg'
 import './Landing.css'
 
 const SEARCH_PLACEHOLDERS = [
@@ -312,7 +313,7 @@ function Landing() {
         <div className="landing__footer-bottom">
           <div className="landing__footer-content">
             <div className="landing__footer-brand">
-              <p className="landing__footer-name">Business Dekho</p>
+              <img src={logo} alt="Business Dekho" className="landing__footer-logo" />
               <p className="landing__footer-tagline">Better sourcing starts with clearer trust.</p>
             </div>
             <div className="landing__footer-links-wrap">

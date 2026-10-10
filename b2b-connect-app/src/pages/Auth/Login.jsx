@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import Navbar from '../../components/Navbar/Navbar'
+import logo from '../../assets/logo.jpeg'
 import './Auth.css'
 
 // Mock valid credentials
@@ -56,11 +57,7 @@ function Login() {
 
       <main className="auth-body">
         <div className="auth-card auth-card--center">
-          <div className="auth-card__brand-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-          </div>
+          <img src={logo} alt="Business Dekho" className="auth-card__brand-img" />
           <h1 className="auth-card__title">Welcome back</h1>
           <p className="auth-card__desc">Sign in to your Business Dekho account</p>
 

@@ -716,6 +716,12 @@
   color: #fff;
 }
 
+.landing__footer-logo {
+  height: 36px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
 .landing__footer-tagline {
   font-size: 14px;
   color: rgba(255,255,255,0.6);
