@@ -75,7 +75,7 @@ function Pricing() {
         </div>
 
         <p className="pricing__disclaimer">
-          Premium is only available after your business passes manual review. Pricing shown is illustrative.
+          Premium is only available after your business is verified. Pricing shown is illustrative.
         </p>
       </section>
     </div>

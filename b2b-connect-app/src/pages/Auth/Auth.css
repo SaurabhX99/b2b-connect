@@ -514,6 +514,16 @@
   margin-top: 8px;
 }
 
+.auth-inline-otp__verifying {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
 .auth-inline-otp__timer {
   font-size: 12px;
   color: var(--color-text-muted);
@@ -811,3 +821,70 @@
     font-size: 16px;
   }
 }
+
+/* ════════════════════════════════
+   Login Error & Spinner
+   ════════════════════════════════ */
+.auth-login-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  color: #dc2626;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.auth-login-error svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.auth-btn-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+/* ════════════════════════════════
+   Password Eye Toggle
+   ════════════════════════════════ */
+.auth-pwd-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.auth-pwd-wrap input {
+  width: 100%;
+  padding-right: 44px;
+}
+
+.auth-pwd-toggle {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  transition: color 0.15s;
+}
+
+.auth-pwd-toggle:hover {
+  color: var(--color-text-secondary);
+}
+

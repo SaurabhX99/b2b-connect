@@ -167,7 +167,7 @@ function Landing() {
               {[
                 [1, 'Create your account', 'Verify your email and mobile to earn Tier 1.'],
                 [2, 'Build your business profile', 'Add business details, domain and address proof.'],
-                [3, 'Submit for manual review', 'Track your review from your seller home.'],
+                [3, 'Submit for verification', 'Upload documents and track your progress from seller home.'],
               ].map(([n, t, d]) => (
                 <div key={n} className="landing__hiw-step">
                   <div className="landing__hiw-step-num">{n}</div>
@@ -192,7 +192,7 @@ function Landing() {
         <div className="landing__tiers-grid">
           {[
             [1, 'Tier 1', 'Email and mobile verified with OTP.', ['User Verified']],
-            [2, 'Tier 2', 'Business documents approved by manual review.', ['Business Domain Verified', 'Business Name Matched', 'Business Address Matched']],
+            [2, 'Tier 2', 'Business documents and domain verified.', ['Business Domain Verified', 'Business Name Matched', 'Business Address Matched']],
             [3, 'Tier 3', 'Approved business with an active Premium plan.', ['Premium Member']],
           ].map(([tier, label, desc, badges]) => (
             <div key={tier} className="landing__tier-card">

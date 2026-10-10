@@ -51,7 +51,7 @@ function ForSellers() {
           {[
             ['1', 'Create your account', 'Sign up with email and verify your mobile number to earn your first badge.'],
             ['2', 'Build your profile', 'Add business details, product categories, location, and certifications.'],
-            ['3', 'Submit for review', 'Upload your business documents for manual review to reach Tier 2.'],
+            ['3', 'Submit for verification', 'Upload your business documents for verification to reach Tier 2.'],
             ['4', 'Go live', 'Once approved, your profile is discoverable by thousands of buyers.'],
           ].map(([num, title, desc]) => (
             <div key={num} className="fsp__step">

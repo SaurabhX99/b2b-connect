@@ -12,6 +12,7 @@ const STEPS = [
 
 const isValidPhone = (v) => /^(\+91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}$/.test(v.replace(/\s/g, ''))
 const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
+const isStrongPassword = (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/.test(v)
 
 /* ── Simple math captcha ── */
 function generateCaptcha() {
@@ -46,15 +47,23 @@ function InlineOtp({ label, timer, fmtTime, onResend, onSubmit, verifying, error
         />
         <button type="button" className="auth-field-btn" onClick={handleSubmit}
           disabled={verifying || otp.length < 4}>
-          {verifying ? <Spinner small /> : 'Submit'}
+          Submit
         </button>
       </div>
-      <div className="auth-inline-otp__meta">
-        {timer > 0
-          ? <span className="auth-inline-otp__timer">Resend in {fmtTime(timer)}</span>
-          : <button type="button" className="auth-link" onClick={onResend}>Resend OTP</button>
-        }
-      </div>
+      {verifying && (
+        <div className="auth-inline-otp__verifying">
+          <Spinner small />
+          <span>Verifying OTP...</span>
+        </div>
+      )}
+      {!verifying && (
+        <div className="auth-inline-otp__meta">
+          {timer > 0
+            ? <span className="auth-inline-otp__timer">Resend in {fmtTime(timer)}</span>
+            : <button type="button" className="auth-link" onClick={onResend}>Resend OTP</button>
+          }
+        </div>
+      )}
       {error && <span className="auth-form__status auth-form__status--error">{error}</span>}
     </div>
   )
@@ -69,6 +78,10 @@ function GetStarted() {
     fullName: '', phone: '', email: '', password: '', confirmPassword: '',
   })
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }))
+
+  // Password visibility
+  const [showPwd, setShowPwd] = useState(false)
+  const [showConfirmPwd, setShowConfirmPwd] = useState(false)
 
   // Captcha
   const [captcha, setCaptcha] = useState(() => generateCaptcha())
@@ -121,7 +134,8 @@ function GetStarted() {
   }
 
   /* ── Step 1 validation ── */
-  const passwordsMatch = form.password.length >= 8 && form.password === form.confirmPassword
+  const passwordValid = isStrongPassword(form.password)
+  const passwordsMatch = passwordValid && form.password === form.confirmPassword
   const canSave = form.fullName.trim() && isValidPhone(form.phone) && isValidEmail(form.email)
     && passwordsMatch && captchaValid
 
@@ -135,7 +149,14 @@ function GetStarted() {
   const handleVerifyPhone = () => {
     if (!isValidPhone(form.phone)) { setPhoneError('Number seems to be incorrect. Please change it.'); return }
     setPhoneError(''); setPhoneSending(true)
-    setTimeout(() => { setPhoneSending(false); setPhoneOtpSent(true); setPhoneTimer(120) }, 1000)
+    setTimeout(() => {
+      setPhoneSending(false)
+      if (form.phone.replace(/[\s-]/g, '').endsWith('8787047278')) {
+        setPhoneError('This number is already registered with another account. Please use a different number.')
+        return
+      }
+      setPhoneOtpSent(true); setPhoneTimer(120)
+    }, 1000)
   }
 
   const handlePhoneOtpSubmit = (otp) => {
@@ -153,7 +174,14 @@ function GetStarted() {
   const handleVerifyEmail = () => {
     if (!isValidEmail(form.email)) { setEmailError('Email seems to be incorrect. Please change it.'); return }
     setEmailError(''); setEmailSending(true)
-    setTimeout(() => { setEmailSending(false); setEmailOtpSent(true); setEmailTimer(120) }, 1000)
+    setTimeout(() => {
+      setEmailSending(false)
+      if (form.email.toLowerCase() === 'fresh01@gmail.com') {
+        setEmailError('This email is already registered with another account. Please use a different email.')
+        return
+      }
+      setEmailOtpSent(true); setEmailTimer(120)
+    }, 1000)
   }
 
   const handleEmailOtpSubmit = (otp) => {
@@ -252,19 +280,50 @@ function GetStarted() {
 
               <div className="auth-form__field">
                 <label>Password</label>
-                <input type="password" required minLength={8} value={form.password}
-                  onChange={e => set('password', e.target.value)} placeholder="Min 8 characters" />
-                <span className="auth-form__hint">Use a mix of letters, numbers and symbols.</span>
+                <div className="auth-pwd-wrap">
+                  <input type={showPwd ? 'text' : 'password'} required minLength={8} value={form.password}
+                    onChange={e => set('password', e.target.value)} placeholder="Min 8 characters" />
+                  <button type="button" className="auth-pwd-toggle" onClick={() => setShowPwd(v => !v)} tabIndex={-1}>
+                    {showPwd ? (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="m1 1 22 22"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/>
+                      </svg>
+                    ) : (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                      </svg>
+                    )}
+                  </button>
+                </div>
+                {form.password && !passwordValid && (
+                  <span className="auth-form__hint auth-form__hint--warn">Must be 8+ chars with uppercase, lowercase, number & special character.</span>
+                )}
+                {form.password && passwordValid && (
+                  <span className="auth-form__status auth-form__status--success">Strong password</span>
+                )}
               </div>
 
               <div className="auth-form__field">
                 <label>Confirm password</label>
-                <input type="password" required value={form.confirmPassword}
-                  onChange={e => set('confirmPassword', e.target.value)} placeholder="Re-enter your password" />
+                <div className="auth-pwd-wrap">
+                  <input type={showConfirmPwd ? 'text' : 'password'} required value={form.confirmPassword}
+                    onChange={e => set('confirmPassword', e.target.value)} placeholder="Re-enter your password" />
+                  <button type="button" className="auth-pwd-toggle" onClick={() => setShowConfirmPwd(v => !v)} tabIndex={-1}>
+                    {showConfirmPwd ? (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="m1 1 22 22"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/>
+                      </svg>
+                    ) : (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                      </svg>
+                    )}
+                  </button>
+                </div>
                 {form.confirmPassword && form.password !== form.confirmPassword && (
                   <span className="auth-form__status auth-form__status--error">Passwords do not match</span>
                 )}
-                {form.confirmPassword && form.password === form.confirmPassword && form.password.length >= 8 && (
+                {form.confirmPassword && passwordsMatch && (
                   <span className="auth-form__status auth-form__status--success">Passwords match</span>
                 )}
               </div>
@@ -363,7 +422,7 @@ function GetStarted() {
                               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/>
                               </svg>
-                              Edit
+                              Change number?
                             </button>
                           )}
                         </span>
@@ -439,7 +498,7 @@ function GetStarted() {
                               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/>
                               </svg>
-                              Edit
+                              Change email?
                             </button>
                           )}
                         </span>
