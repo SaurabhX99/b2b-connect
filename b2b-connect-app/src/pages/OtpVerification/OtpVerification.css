@@ -39,6 +39,11 @@
   justify-content: center;
 }
 
+.otp-page__logo-img {
+  height: 32px;
+  object-fit: contain;
+}
+
 .otp-page__secure {
   display: flex;
   align-items: center;

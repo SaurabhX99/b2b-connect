@@ -26,20 +26,9 @@
   letter-spacing: -0.2px;
 }
 
-.navbar__logo-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: var(--color-navy-dark);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.navbar__logo-icon svg {
-  width: 18px;
-  height: 18px;
+.navbar__logo-img {
+  height: 36px;
+  object-fit: contain;
 }
 
 .navbar__links {

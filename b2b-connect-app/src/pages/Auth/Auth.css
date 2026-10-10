@@ -120,6 +120,13 @@
   margin: 0 auto 20px;
 }
 
+.auth-card__brand-img {
+  height: 44px;
+  object-fit: contain;
+  margin: 0 auto 20px;
+  display: block;
+}
+
 .auth-card__title {
   font-size: 28px;
   font-weight: 700;
