@@ -1,0 +1,36 @@
+.otp-input {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.otp-input__digit {
+  width: 56px;
+  height: 64px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-text);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card);
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.otp-input__digit:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(45, 59, 45, 0.1);
+}
+
+.otp-input__digit--filled {
+  border-color: var(--color-primary);
+}
+
+@media (max-width: 480px) {
+  .otp-input__digit {
+    width: 48px;
+    height: 56px;
+    font-size: 20px;
+  }
+}
